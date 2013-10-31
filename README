@@ -19,7 +19,9 @@ and possible meaning described below:
 3. Sequence number going down from 0xBB to 0xB8
 ** The sum of 2 and 3 seem to always be 0xFF
 4. 0x81 Seen to be 0x01 on first connect, but after that stays at 0x81
-5. 0x?? Varies, most likely battery charge information, as it is large after charge and then goes down
+5. 0x?? Varies, most likely battery charge information, as it is large after charge and then goes down.
+   - Seen as 0x53 on first connect, if 4. is 0x01
+   - 0x3C when fully charged
 6. 0x?? Heart rate measurement, the value we are looking for
 7. 0x00 7-10 sometimes have values, sometime they 0x00
 8. 0x00 
