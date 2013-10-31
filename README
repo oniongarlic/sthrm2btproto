@@ -1,0 +1,72 @@
+Sports Tracker HRM2 Bluetooth HRM belt protocol
+
+Probabler protocol specification of the ST-HRM2 Bluetooth HRM belt.
+
+SPP Service, easy to connect with plain RFCOMM, data can be viewed with 
+
+sudo cat /dev/rfcomm0 | hexdump
+
+The data dumps are made with the simple helper script, bthrm-data-dumpper.sh
+
+The device sends out data packets every second, the length varies, the contents
+and possible meaning described below:
+
+1. 0xFA Start of data packet
+2. Sequence number going up from 0x44 to 0x47
+3. Sequence number going down from 0xBB to 0xB8
+** The sum of 2 and 3 seem to always be 0xFF
+4. 0x81 Seen to be 0x01 on first connect, but after that stays at 0x81
+5. 0x?? Varies, most likely battery charge information, as it is large after charge and then goes down
+6. 0x?? Heart rate measurement, the value we are looking for
+7. 0x00 7-10 sometimes have values, sometime they 0x00
+8. 0x00 
+9. 0x00
+10 0x00 
+10. Padding of 6,7,9 zeroes, varies
+11. Packet ends with two bytes, most likely a checksum
+
+Example packet
+1  4518#    0xFA hex Start
+2  4519#    0x47 hex 
+3  4520#    0xB8 hex 0x47+0xB8==0xFF
+4  4521#    0x81 hex 
+5  4522#    0x24 hex HR
+6  4523#    0x4C hex ?
+7  4524#    0x30 hex ?
+8  4525#    0x22 hex ?
+9  4526#    0xF9 hex ?
+10 4527#    0x00 hex 
+11 4528#    0x00 hex 
+12 4529#    0x00 hex 
+13 4530#    0x00 hex 
+14 4531#    0x00 hex 
+15 4532#    0x00 hex 
+16 4533#    0x14 hex 
+17 4534#    0xA1 hex Checksum ?
+
+Sometimes an unknown data packet is sent, currently the meaning is unknown:
+4552#    0xB3 hex = -77 dec = 263 oct = _�_
+4553#    0x22 hex = 034 dec = 042 oct = _"_
+4554#    0x93 hex = -109 dec = 223 oct = _�_
+4555#    0x72 hex = 114 dec = 162 oct = _r_
+4556#    0x83 hex = -125 dec = 203 oct = _�_
+4557#    0x67 hex = 103 dec = 147 oct = _g_
+4558#    0x6E hex = 110 dec = 156 oct = _n_
+4559#    0x6D hex = 109 dec = 155 oct = _m_
+4560#    0xE1 hex = -31 dec = 341 oct = _�_
+4561#    0xC7 hex = -57 dec = 307 oct = _�_
+4562#    0xF7 hex = -09 dec = 367 oct = _�_
+4563#    0xDB hex = -37 dec = 333 oct = _�_
+4564#    0x19 hex = 025 dec = 031 oct = _^Y_
+4565#    0x4F hex = 079 dec = 117 oct = _O_
+4566#    0x51 hex = 081 dec = 121 oct = _Q_
+4567#    0x08 hex = 008 dec = 010 oct = _^H_
+4568#    0xED hex = -19 dec = 355 oct = _�_
+4569#    0x1D hex = 029 dec = 035 oct = _^]_
+4570#    0x1A hex = 026 dec = 032 oct = _^Z_
+4571#    0x46 hex = 070 dec = 106 oct = _F_
+4572#    0x32 hex = 050 dec = 062 oct = _2_
+4573#    0x41 hex = 065 dec = 101 oct = _A_
+4574#    0xC3 hex = -61 dec = 303 oct = _�_
+4575#    0x68 hex = 104 dec = 150 oct = _h_
+
