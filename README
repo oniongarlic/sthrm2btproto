@@ -33,8 +33,8 @@ Example packet
 2  4519#    0x47 hex 
 3  4520#    0xB8 hex 0x47+0xB8==0xFF
 4  4521#    0x81 hex 
-5  4522#    0x24 hex HR
-6  4523#    0x4C hex ?
+5  4522#    0x24 hex Battery?
+6  4523#    0x4C hex HR
 7  4524#    0x30 hex ?
 8  4525#    0x22 hex ?
 9  4526#    0xF9 hex ?
