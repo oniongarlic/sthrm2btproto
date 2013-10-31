@@ -1,6 +1,9 @@
 Sports Tracker HRM2 Bluetooth HRM belt protocol
 
-Probabler protocol specification of the ST-HRM2 Bluetooth HRM belt.
+The protocol used by the ST HRM2 belt is unknown, there are no official documentation available.
+This README describe a probable protocol specification of the ST-HRM2 Bluetooth HRM belt.
+
+If you have anything to add to this, please let me know!
 
 SPP Service, easy to connect with plain RFCOMM, data can be viewed with 
 
@@ -22,7 +25,7 @@ and possible meaning described below:
 8. 0x00 
 9. 0x00
 10 0x00 
-10. Padding of 6,7,9 zeroes, varies
+10. Padding of 6,7,9 zeroes, amount varies
 11. Packet ends with two bytes, most likely a checksum
 
 Example packet
